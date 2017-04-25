@@ -15,7 +15,7 @@ public class AppTest
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+   /* public AppTest( String testName )
     {
         super( testName );
     }
@@ -23,7 +23,7 @@ public class AppTest
     /**
      * @return the suite of tests being tested
      */
-    public static Test suite()
+    /*public static Test suite()
     {
         return new TestSuite( AppTest.class );
     }
@@ -31,8 +31,19 @@ public class AppTest
     /**
      * Rigourous Test :-)
      */
-    public void testApp()
+	Usuario u1,u2,u3;
+	Biblioteca b1;
+    public void testSprint1()
     {
-        assertTrue( true );
+    	u1 = new Usuario("Paulo");
+    	u2 = new Usuario("Maria");
+    	u3 = new Usuario("Joao");
+    	b1 = new Biblioteca();
+    	b1.addUser(u1);
+    	assertTrue(b1.containUser(u1));
+    	b1.blockUser(u1);
+    	assertTrue(b1.isBlocked(u1));
+    	b1.removeUser(u1);
+    	assertFalse(b1.containUser(u1));
     }
 }
