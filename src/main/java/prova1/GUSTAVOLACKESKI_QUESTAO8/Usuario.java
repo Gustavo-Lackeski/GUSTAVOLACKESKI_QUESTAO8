@@ -7,7 +7,10 @@ public class Usuario {
 	private int _id;
 	private static int cont = 0;
 	private  ArrayList<Livro> _livros;
+	public boolean bloqueadoAtrazo,bloqueadoCobranca,Liberado;
 	public Usuario(String name){
+		bloqueadoAtrazo = bloqueadoCobranca = false;
+		Liberado = true;
 		this._livros = new ArrayList<Livro>();
 		this._name = name;
 		cont++;
@@ -30,6 +33,11 @@ public class Usuario {
 	public String getName(){
 		return this._name;
 	}
+	public void getStatus(Biblioteca b){
+		this.bloqueadoAtrazo = b.isBlockedAtraso(this);
+		this.bloqueadoCobranca = b.isBlockedCobranca(this);
+		this.Liberado = b.containUser(this);
+	}
 	@Override
 	public boolean equals(Object o){
 		if (o instanceof Usuario){
@@ -37,5 +45,13 @@ public class Usuario {
 		}
 		return false;
 	}
+	public boolean hasLivroForaPrazo(){
+		for(Livro l:this._livros){
+			if (!l.getPrazo());
+				return false;
+		}
+		return true;
+	}
+	
 
 }

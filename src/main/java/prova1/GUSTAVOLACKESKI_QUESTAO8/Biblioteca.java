@@ -7,13 +7,15 @@ import java.util.ArrayList;
 public class Biblioteca 
 {
 	private  ArrayList<Usuario> _freeUsers;
-	private  ArrayList<Usuario> _blockedUsers;
+	private  ArrayList<Usuario> _blockedAtrasoUsers;
+	private  ArrayList<Usuario> _blockedCobrancaUsers;	
 	private  ArrayList<Livro> _livros;
 	private String _name;
 	public Biblioteca(){
 		this._freeUsers = new ArrayList<Usuario>();
-		this._blockedUsers = new ArrayList<Usuario>();
+		this._blockedAtrasoUsers = new ArrayList<Usuario>();
 		this._livros = new ArrayList<Livro>();
+		this._blockedCobrancaUsers = new ArrayList<Usuario>();
 	}
 	public void addLivro(Livro l){
 		if(!_livros.contains(l))
@@ -26,14 +28,21 @@ public class Biblioteca
 	public void removeUser(Usuario user){
 		if(_freeUsers.contains(user))
 			_freeUsers.remove(user);
-		if(_blockedUsers.contains(user))
-			_blockedUsers.remove(user);
+		if(_blockedAtrasoUsers.contains(user))
+			_blockedAtrasoUsers.remove(user);
 	}
-	public void blockUser(Usuario user){
+	public void blockAtrasoUser(Usuario user){
 		if(_freeUsers.contains(user)){
 			_freeUsers.remove(user);
-			if(!_blockedUsers.contains(user))
-				_blockedUsers.add(user);
+			if(!_blockedAtrasoUsers.contains(user))
+				_blockedAtrasoUsers.add(user);
+		}
+	}
+	public void blockCobrancaUser(Usuario user){
+		if(_freeUsers.contains(user)){
+			_freeUsers.remove(user);
+			if(!_blockedCobrancaUsers.contains(user))
+				_blockedCobrancaUsers.add(user);
 		}
 	}
 	public void regEmprestimo(Usuario u, Livro l){		
@@ -46,7 +55,7 @@ public class Biblioteca
 			this._livros.add(l);
 		}
 		else{
-			this._blockedUsers.get(_blockedUsers.indexOf(u)).removeLivro(l);
+			this._blockedAtrasoUsers.get(_blockedAtrasoUsers.indexOf(u)).removeLivro(l);
 			this._livros.add(l);
 		}
 			
@@ -56,10 +65,13 @@ public class Biblioteca
 			System.out.println(u.getName());
 	}*/
 	public boolean containUser(Usuario u){
-		return (this._blockedUsers.contains(u)||this._freeUsers.contains(u));
+		return (this._freeUsers.contains(u));
 	}
-	public boolean isBlocked(Usuario u){
-		return this._blockedUsers.contains(u);
+	public boolean isBlockedAtraso(Usuario u){
+		return this._blockedAtrasoUsers.contains(u);
+	}
+	public boolean isBlockedCobranca(Usuario u){
+		return this._blockedCobrancaUsers.contains(u);
 	}
 	public boolean containBook(Livro l){
 		return this._livros.contains(l);

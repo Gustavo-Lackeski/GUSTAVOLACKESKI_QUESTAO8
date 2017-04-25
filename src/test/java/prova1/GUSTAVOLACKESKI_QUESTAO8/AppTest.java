@@ -43,8 +43,8 @@ public class AppTest
     	b1 = new Biblioteca();
     	b1.addUser(u1);
     	assertTrue(b1.containUser(u1));
-    	b1.blockUser(u1);
-    	assertTrue(b1.isBlocked(u1));
+    	b1.blockAtrasoUser(u1);
+    	assertTrue(b1.isBlockedAtraso(u1));
     	b1.removeUser(u1);
     	assertFalse(b1.containUser(u1));
     }
@@ -61,5 +61,23 @@ public class AppTest
     	b1.regDevol(u1, l1);
     	assertTrue(b1.containBook(l1));
     	assertFalse(u1.containBook(l1));
+    }
+    public void testSprint4(){
+    	b1 = new Biblioteca();
+    	l1 = new Livro("Livro1");
+    	u1 = new Usuario("Paulo");
+    	u2 = new Usuario("Maria");
+    	b1.addUser(u1);
+    	b1.addUser(u2);
+    	l1 = new Livro("Livro1");
+    	b1.blockAtrasoUser(u1);
+    	u1.getStatus(b1);
+    	assertTrue(u1.bloqueadoAtrazo);
+    	b1.blockCobrancaUser(u2);
+    	u2.getStatus(b1);
+    	assertTrue(u2.bloqueadoCobranca);
+    	u2.addLivro(l1);
+    	l1.setforaPrazo();
+    	assertFalse(u2.hasLivroForaPrazo());
     }
 }
